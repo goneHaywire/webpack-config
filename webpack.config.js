@@ -1,14 +1,26 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const path = require("path");
 
 let mode = "development";
 let target = "web";
 
+const plugins = [
+  new CleanWebpackPlugin(),
+  new MiniCssExtractPlugin(),
+  new HtmlWebpackPlugin({
+    template: "./src/index.html",
+  }),
+];
+
 if (process.env.NODE_ENV === "production") {
   mode = "production";
   target = "browserslist";
+} else {
+  // this plugin works only on development
+  plugins.push(new ReactRefreshWebpackPlugin());
 }
 
 module.exports = {
@@ -17,6 +29,8 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
   },
+
+  entry: "./src/index.js",
 
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -66,13 +80,7 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin(),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-    }),
-  ],
+  plugins,
 
   //   no source-maps used
   //   devtool: false,

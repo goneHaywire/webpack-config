@@ -1,3 +1,6 @@
+// @refresh reset
+// used to force hard reload of a component
+
 import {useState} from 'react'
 
 const elvenShieldRecipe = {
