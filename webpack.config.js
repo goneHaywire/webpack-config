@@ -11,11 +11,14 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   mode,
   target: target,
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
 
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         use: {
           loader: "babel-loader",
         },
