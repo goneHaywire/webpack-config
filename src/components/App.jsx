@@ -3,6 +3,9 @@ import "../styles/index.scss";
 import React from "react";
 import Recipes from './Recipes'
 
+// for image imports
+// import { img } from "../images/image"
+
 const App = () => {
   return (
     <>
@@ -11,8 +14,10 @@ const App = () => {
         <section>
           <h1>Ohai, Mark!</h1>
         </section>
-      </main>
       <Recipes></Recipes>
+
+      </main>
+      {/* <img src={image} alt="image"/> */}
     </>
   );
 };

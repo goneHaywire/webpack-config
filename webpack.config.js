@@ -15,8 +15,29 @@ module.exports = {
     extensions: [".js", ".jsx"],
   },
 
+  output: {
+    assetModuleFilename: "images/[hash][ext][query]",
+  },
+
   module: {
     rules: [
+      {
+        test: /\.(png|jpe?g|gif|svg)/i,
+        // adds files directly to the js
+        type: "asset/inline",
+
+        // adds files externally
+        // type: "asset/resource"
+
+        // determine from default size limit whether to place inline or externally
+        type: "asset",
+
+        parser: {
+          dataUrlCondition: {
+            maxSize: 30 * 1024,
+          },
+        },
+      },
       {
         test: /\.jsx?$/,
         use: {
@@ -27,7 +48,12 @@ module.exports = {
       {
         test: /\.(s[ac]|c)ss$/i,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: "",
+            },
+          },
           "css-loader",
           "postcss-loader",
           "sass-loader",
