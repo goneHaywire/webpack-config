@@ -18,7 +18,9 @@ const plugins = [
 if (process.env.NODE_ENV === "production") {
   mode = "production";
   target = "browserslist";
-} else {
+}
+
+if (process.env.SERVE) {
   // this plugin works only on development
   plugins.push(new ReactRefreshWebpackPlugin());
 }
